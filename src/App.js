@@ -72,7 +72,6 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(
-	mapStateToProps,
+	mapStateToProps, // access to this.props.currentUser
 	mapDispatchToProps
 )(App)
-// app dont need current user comp. so we pass a null
