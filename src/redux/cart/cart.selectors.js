@@ -1,13 +1,18 @@
 import { createSelector } from 'reselect'
 
 const selectCart = state => state.cart
-// Ar store yra cart objektas?
-// taking part of state that we need - cart
+// input selector
 
 export const selectCartItems = createSelector(
+	// because of createSelector it's memoized (cached)
 	[selectCart],
 	cart => cart.cartItems
-	// Kas cia vyksta??
+	// returns the value we want out of selector (cart.itms)
+)
+
+export const selectCartHidden = createSelector(
+	[selectCart],
+	cart => cart.hidden
 )
 
 export const selectCartItemsCount = createSelector(
@@ -18,4 +23,12 @@ export const selectCartItemsCount = createSelector(
 				accumulatedQuantity + cartItem.quantity,
 			0
 		)
+)
+
+export const selectCartTotal = createSelector([selectCartItems], cartItems =>
+	cartItems.reduce(
+		(accumulatedQuantity, cartItem) =>
+			accumulatedQuantity + cartItem.quantity * cartItem.price,
+		0
+	)
 )
